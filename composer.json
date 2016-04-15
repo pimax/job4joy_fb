@@ -1,0 +1,6 @@
+{
+    "require": {
+        "fguillot/picofeed": "@stable",
+        "pimax/fb-messenger-php": "dev-master"
+    }
+}
