@@ -72,54 +72,46 @@ if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_R
  */
 function sendHelpMessage($bot, $message)
 {
+    $bot->send(new Message($message['sender']['id'], 'Hello! Please choose the category:'));
     $bot->send(new StructuredMessage($message['sender']['id'],
-        StructuredMessage::TYPE_BUTTON,
+        StructuredMessage::TYPE_GENERIC,
         [
-            'text' => 'Choose category',
-            'buttons' => [
-                new MessageButton(MessageButton::TYPE_POSTBACK, 'All jobs'),
-                new MessageButton(MessageButton::TYPE_POSTBACK, 'Web Development'),
-                new MessageButton(MessageButton::TYPE_POSTBACK, 'Software Development & IT')
+            'elements' => [
+                new MessageElement('All jobs', 'Projects in all categories', [
+                    new MessageButton(MessageButton::TYPE_POSTBACK, 'Show projects', 'All jobs')
+                ]),
+
+                new MessageElement('Development', 'Projects for developers', [
+                    new MessageButton(MessageButton::TYPE_POSTBACK, 'Web Development'),
+                    new MessageButton(MessageButton::TYPE_POSTBACK, 'Software Development & IT'),
+                    new MessageButton(MessageButton::TYPE_POSTBACK, 'Mobile Application'),
+                ]),
+
+                new MessageElement('Writers', 'Projects for writers and translators', [
+                    new MessageButton(MessageButton::TYPE_POSTBACK, 'Writing'),
+                    new MessageButton(MessageButton::TYPE_POSTBACK, 'Translation & Languages')
+                ]),
+
+                new MessageElement('Design & Multimedia', 'Design & Multimedia projects', [
+                    new MessageButton(MessageButton::TYPE_POSTBACK, 'Show Projects', 'Design & Multimedia'),
+                ]),
+
+                new MessageElement('Host & Server Management', 'Host & Server Management projects', [
+                    new MessageButton(MessageButton::TYPE_POSTBACK, 'Show projects', 'Host & Server Management')
+                ]),
+
+                new MessageElement('Marketing', 'Marketing projects', [
+                    new MessageButton(MessageButton::TYPE_POSTBACK, 'Show projects', 'Marketing')
+                ]),
+
+                new MessageElement('Business Services', 'Business Services projects', [
+                    new MessageButton(MessageButton::TYPE_POSTBACK, 'Show projects', 'Business Services'),
+                ]),
+
+
             ]
         ]
     ));
-
-    $bot->send(new StructuredMessage($message['sender']['id'],
-        StructuredMessage::TYPE_BUTTON,
-        [
-            'text' => ' ',
-            'buttons' => [
-                new MessageButton(MessageButton::TYPE_POSTBACK, 'Design & Multimedia'),
-                new MessageButton(MessageButton::TYPE_POSTBACK, 'Mobile Application'),
-                new MessageButton(MessageButton::TYPE_POSTBACK, 'Host & Server Management')
-            ]
-        ]
-    ));
-
-
-    $bot->send(new StructuredMessage($message['sender']['id'],
-        StructuredMessage::TYPE_BUTTON,
-        [
-            'text' => ' ',
-            'buttons' => [
-                new MessageButton(MessageButton::TYPE_POSTBACK, 'Writing'),
-                new MessageButton(MessageButton::TYPE_POSTBACK, 'Mobile Application'),
-                new MessageButton(MessageButton::TYPE_POSTBACK, 'Marketing')
-            ]
-        ]
-    ));
-
-    $bot->send(new StructuredMessage($message['sender']['id'],
-        StructuredMessage::TYPE_BUTTON,
-        [
-            'text' => ' ',
-            'buttons' => [
-                new MessageButton(MessageButton::TYPE_POSTBACK, 'Business Services'),
-                new MessageButton(MessageButton::TYPE_POSTBACK, 'Translation & Languages')
-            ]
-        ]
-    ));
-
 
     return true;
 }
